@@ -3,7 +3,7 @@ perl:
   - "5.26.0"
 sudo: required
 
-before_install:
+install:
 ## Install SSL
   - sudo apt-get update
   - sudo apt-get install gcc libssl1.0.0 libssl-dev libcrypto++9 libcrypto++-dev libpthread-stubs0-dev
