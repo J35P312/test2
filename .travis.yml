@@ -26,8 +26,7 @@ before_install:
   - sed -i '/DB_File/d' ./definitions/cpanfile
   - cd definitions; cpanm --quiet --notest --installdeps .
   - cd -
-## Set up for cpanm dependencies test
-- cpanm --notest Devel::Cover::Report::Coveralls
+  - cpanm --notest Devel::Cover::Report::Coveralls
 
 script:
 
@@ -42,5 +41,5 @@ script:
   - unzip 2.0.0.zip
   - cd SVDB-2.0.0
   - pip install -e .
-- svdb --help
-- echo "hej"
+  - svdb --help
+  - echo "hej"
