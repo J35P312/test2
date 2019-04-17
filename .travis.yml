@@ -4,7 +4,6 @@ perl:
 sudo: required
 
 install:
-## Install SSL
   - sudo apt-get update
   - sudo apt-get install gcc libssl1.0.0 libssl-dev libcrypto++9 libcrypto++-dev libpthread-stubs0-dev
   - cd /lib/x86_64-linux-gnu
@@ -13,25 +12,20 @@ install:
   - cd -
 
 ## Install conda
-  - wget https://repo.anaconda.com/miniconda/Miniconda2-4.5.12-Linux-x86_64.sh -O miniconda.sh;
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - source $HOME/miniconda/etc/profile.d/conda.sh
-  - conda activate base
- -  conda config --add channels conda-forge
- - conda install -c conda-forge cython numpy
-  - conda config --set always_yes yes --set changeps1 no
-#  - conda update -q conda
-  - conda info -a
+   - wget https://repo.anaconda.com/miniconda/Miniconda2-4.5.12-Linux-x86_64.sh -O miniconda.sh;
+   - bash miniconda.sh -b -p $HOME/miniconda
+   - source $HOME/miniconda/etc/profile.d/conda.sh
+   - conda activate base
+   -  conda config --add channels conda-forge
+   - conda install -c conda-forge cython numpy
+   - conda config --set always_yes yes --set changeps1 no
+   - conda info -a
 
 script:
-
-## Run MIP install script
   - conda create --name myenv python=2.7
   - source activate myenv 
-  
   - wget https://github.com/J35P312/SVDB/archive/2.0.0.zip
   - unzip 2.0.0.zip
   - cd SVDB-2.0.0
   - pip install -e .
   - svdb --help
-  - echo "hej"
