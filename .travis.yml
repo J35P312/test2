@@ -21,21 +21,11 @@ install:
 #  - conda update -q conda
   - conda info -a
 
-## Download cpan libraries
-## For some reason DB_File installation fails, it is not needed for the test
-  - sed -i '/DB_File/d' ./definitions/cpanfile
-  - cd definitions; cpanm --quiet --notest --installdeps .
-  - cd -
-  - cpanm --notest Devel::Cover::Report::Coveralls
-
 script:
 
 ## Run MIP install script
   - conda create --name myenv python=2.7  cython=0.29.1 
   - source activate myenv 
-  - cd /lib/x86_64-linux-gnu
-  - sudo ln -s "$ROOTSYS"/lib/*so .
-  - cd -
   
   - wget https://github.com/J35P312/SVDB/archive/2.0.0.zip
   - unzip 2.0.0.zip
