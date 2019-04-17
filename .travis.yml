@@ -1,0 +1,45 @@
+language: perl
+perl:
+  - "5.26.0"
+sudo: required
+
+before_install:
+## Install SSL
+  - sudo apt-get update
+  - sudo apt-get install gcc libssl1.0.0 libssl-dev libcrypto++9 libcrypto++-dev libpthread-stubs0-dev
+  - cd /lib/x86_64-linux-gnu
+  - sudo ln -s libssl.so.1.0.0 libssl.so.10
+  - sudo ln -s libcrypto.so.1.0.0 libcrypto.so.10
+  - cd -
+
+## Install conda
+  - wget https://repo.anaconda.com/miniconda/Miniconda2-4.5.12-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - source $HOME/miniconda/etc/profile.d/conda.sh
+  - conda activate base
+  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+  - conda info -a
+
+## Download cpan libraries
+## For some reason DB_File installation fails, it is not needed for the test
+  - sed -i '/DB_File/d' ./definitions/cpanfile
+  - cd definitions; cpanm --quiet --notest --installdeps .
+  - cd -
+## Set up for cpanm dependencies test
+- cpanm --notest Devel::Cover::Report::Coveralls
+
+script:
+
+## Run MIP install script
+  - conda create --name myenv python=2.7  cython=0.29.1 
+  - source activate myenv 
+  - cd /lib/x86_64-linux-gnu
+  - sudo ln -s "$ROOTSYS"/lib/*so .
+  - cd -
+  
+  - wget https://github.com/J35P312/SVDB/archive/2.0.0.zip
+  - unzip 2.0.0.zip
+  - cd SVDB-2.0.0
+  - pip install -e .
+- svdb --help
