@@ -24,7 +24,7 @@ install:
 script:
 
 ## Run MIP install script
-  - conda create --name myenv python=2.7  cython=0.29.1 
+  - conda create --name myenv python=2.7
   - source activate myenv 
   
   - wget https://github.com/J35P312/SVDB/archive/2.0.0.zip
