@@ -3,7 +3,7 @@ perl:
   - "5.26.0"
 sudo: required
 
-install:
+before_install:
 ## Install SSL
   - sudo apt-get update
   - sudo apt-get install gcc libssl1.0.0 libssl-dev libcrypto++9 libcrypto++-dev libpthread-stubs0-dev
@@ -20,6 +20,9 @@ install:
   - conda config --set always_yes yes --set changeps1 no
 #  - conda update -q conda
   - conda info -a
+
+install:
+echo "hej"
 
 script:
 
